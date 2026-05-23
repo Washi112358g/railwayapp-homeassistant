@@ -8,6 +8,9 @@ RUN mkdir -p /run/sshd && \
     mkdir -p /root/.ssh && \
     chmod 700 /root/.ssh
 
+# Copy configuration file
+COPY configuration.yaml /root/configuration.yaml
+
 # Copy entrypoint script
 COPY --chmod=0755 docker-entrypoint.sh /usr/local/bin/railway-homeassistant-entrypoint
 
