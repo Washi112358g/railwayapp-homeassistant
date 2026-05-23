@@ -16,6 +16,7 @@ if ! grep -q "RAILWAY_PROXY_CONFIG_START" "${CONFIG_FILE}"; then
 http:
   use_x_forwarded_for: true
   trusted_proxies:
+    - 127.0.0.1
     - 100.64.0.0/10
 # RAILWAY_PROXY_CONFIG_END
 EOF
