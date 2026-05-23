@@ -1,13 +1,21 @@
 FROM ghcr.io/home-assistant/home-assistant:stable
 
-RUN apt-get update && apt-get install -y openssh-server && rm -rf /var/lib/apt/lists/*
+# Install SSH server (Alpine Linux)
+RUN apk add --no-cache openssh
 
-RUN mkdir -p /run/sshd && mkdir -p /root/.ssh && chmod 700 /root/.ssh
+# Create SSH directory and configure
+RUN mkdir -p /run/sshd && \
+    mkdir -p /root/.ssh && \
+    chmod 700 /root/.ssh
 
+# Copy entrypoint script
 COPY --chmod=0755 docker-entrypoint.sh /usr/local/bin/railway-homeassistant-entrypoint
 
+# Copy SSH setup script
 COPY --chmod=0755 setup-ssh.sh /usr/local/bin/setup-ssh.sh
 
+# Expose SSH port
 EXPOSE 22
 
+# Run SSH setup and entrypoint
 CMD ["/bin/sh", "-c", "/usr/local/bin/setup-ssh.sh && /usr/local/bin/railway-homeassistant-entrypoint"]
