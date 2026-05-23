@@ -1,0 +1,18 @@
+# Configure a default setup of Home Assistant (includes api, frontend, history, logbook, automation, sun, system_health)
+default_config:
+
+# Mobile App Integration
+mobile_app:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# Logging
+logger:
+  default: info
+
+# Automation
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
