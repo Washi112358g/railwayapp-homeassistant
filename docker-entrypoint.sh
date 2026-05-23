@@ -5,7 +5,11 @@ CONFIG_DIR="${CONFIG_DIR:-/config}"
 CONFIG_FILE="${CONFIG_DIR}/configuration.yaml"
 
 mkdir -p "${CONFIG_DIR}"
-touch "${CONFIG_FILE}"
+
+# If configuration.yaml doesn't exist, copy from repository
+if [ ! -f "${CONFIG_FILE}" ]; then
+  cp /root/configuration.yaml "${CONFIG_FILE}" 2>/dev/null || touch "${CONFIG_FILE}"
+fi
 
 # Railway traffic is forwarded through an internal reverse proxy.
 # Trust that proxy range so Home Assistant accepts forwarded headers.
